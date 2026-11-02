@@ -1,0 +1,19 @@
+{
+  "name": "临空日历",
+  "short_name": "临空",
+  "description": "临空日历，用月历查看多人混池、单人卡池与特别活动的排期。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F2F2F4",
+  "theme_color": "#F2F2F4",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "./app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

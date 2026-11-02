@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#F2F2F4" />
+    <meta
+      name="description"
+      content="临空日历，用月历查看多人混池、单人卡池与特别活动的排期。"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./app-icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./letter-theme.css" />
+    <title>临空日历</title>
+  </head>
+  <body class="theme-letter">
+    <div class="ambient" aria-hidden="true">
+      <span class="ambient-orb ambient-orb-one"></span>
+      <span class="ambient-orb ambient-orb-two"></span>
+      <span class="ambient-orb ambient-orb-three"></span>
+    </div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="临空日历首页">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 36 36">
+              <defs>
+                <linearGradient id="brandCool" x1="0" y1="0" x2="1" y2="1">
+                  <stop stop-color="#C2C3D0" />
+                  <stop offset="1" stop-color="#9498AD" />
+                </linearGradient>
+                <linearGradient id="brandWarm" x1="1" y1="0" x2="0" y2="1">
+                  <stop stop-color="#DFC1C2" />
+                  <stop offset="1" stop-color="#B1B3C1" />
+                </linearGradient>
+              </defs>
+              <path class="brand-orbit-line" d="M5.2 20.6c7.4 2.2 18.3.9 25.7-5.6" />
+              <path class="brand-heart-left" d="M17.1 29.3C13 25.8 6.6 21.7 6.1 16.1c-.3-4.3 3.5-7.7 7-6 1.9.9 3 2.7 4.2 4.1" />
+              <path class="brand-heart-right" d="M17.6 14.2c1.8-3.6 6.1-6 9.4-3.8 3.8 2.6 2.1 7.8-1.5 10.9-2.6 2.3-5.5 5.5-8.4 8" />
+              <path class="brand-heart-star" d="M27.7 4.8c.3 1.5 1 2.2 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.3 2.2-1 2.5-2.5Z" />
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>临空日历</strong>
+            <small>LIN KONG</small>
+          </span>
+        </a>
+
+        <div class="topbar-actions">
+          <span class="data-badge" title="排期与官方微博数据更新至 2026-10-30">
+            更新至 10.30
+          </span>
+          <button class="icon-button" id="todayButton" type="button" aria-label="回到今天">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" />
+              <path d="M8 13h3v3H8z" />
+            </svg>
+            <span>今天</span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="page-intro" aria-labelledby="pageTitle">
+          <div>
+            <p class="eyebrow">Linkon City</p>
+            <h1 id="pageTitle">卡池排期</h1>
+            <p class="intro-copy">上下滑动，一眼看懂全年卡池节奏。</p>
+          </div>
+          <div class="intro-meta" aria-label="日历摘要">
+            <span id="monthEventCount">0 个活动</span>
+            <span class="meta-divider"></span>
+            <span id="demoDateLabel">演示日 8 月 18 日</span>
+          </div>
+        </section>
+
+        <div class="workspace">
+          <section class="calendar-panel" aria-labelledby="calendarHeading">
+            <div class="calendar-mode-bar">
+              <div class="mode-switcher" role="group" aria-label="日历视图">
+                <button
+                  class="mode-button is-active"
+                  type="button"
+                  data-calendar-mode="year"
+                  aria-pressed="true"
+                >
+                  连续年览
+                </button>
+                <button
+                  class="mode-button"
+                  type="button"
+                  data-calendar-mode="month"
+                  aria-pressed="false"
+                >
+                  月视图
+                </button>
+              </div>
+              <div class="calendar-control-cluster">
+                <div class="year-range-switcher" id="yearRangeSwitcher" role="group" aria-label="年览范围">
+                  <button class="range-button" type="button" data-year-span="1" aria-pressed="false">
+                    1 年
+                  </button>
+                  <button
+                    class="range-button"
+                    type="button"
+                    data-year-span="2"
+                    aria-pressed="false"
+                  >
+                    2 年
+                  </button>
+                  <button
+                    class="range-button is-active"
+                    type="button"
+                    data-year-span="3"
+                    aria-pressed="true"
+                  >
+                    3 年
+                  </button>
+                </div>
+                <div class="size-switcher" role="group" aria-label="日历大小">
+                  <button class="size-button" type="button" data-density="compact" aria-pressed="false">
+                    紧凑
+                  </button>
+                  <button
+                    class="size-button is-active"
+                    type="button"
+                    data-density="comfortable"
+                    aria-pressed="true"
+                  >
+                    舒展
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="calendar-toolbar">
+              <div class="month-control">
+                <button class="nav-arrow" id="previousMonth" type="button" aria-label="上一个月">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
+                </button>
+                <button class="month-title" id="monthTitleButton" type="button" aria-haspopup="dialog">
+                  <span id="displayYear">2025</span>
+                  <strong id="displayMonth">8月</strong>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m7 10 5 5 5-5" />
+                  </svg>
+                </button>
+                <button class="nav-arrow" id="nextMonth" type="button" aria-label="下一个月">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </button>
+              </div>
+
+              <div class="view-switcher" role="group" aria-label="卡池筛选">
+                <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">
+                  全部
+                </button>
+                <button
+                  class="filter-button"
+                  type="button"
+                  data-filter="mixed"
+                  aria-pressed="false"
+                  title="包含倾慕臻礼、星谕罗盘"
+                >
+                  混池
+                </button>
+                <button class="filter-button" type="button" data-filter="solo" aria-pressed="false">
+                  单人
+                </button>
+                <button class="filter-button" type="button" data-filter="free4" aria-pressed="false">
+                  四星签到
+                </button>
+                <button class="filter-button" type="button" data-filter="free5" aria-pressed="false">
+                  免费五星
+                </button>
+                <button
+                  class="filter-button"
+                  type="button"
+                  data-filter="storyline"
+                  aria-pressed="false"
+                  title="主线分线更新签到，可免费领取五星思念"
+                >
+                  分线更新
+                </button>
+                <button class="filter-button" type="button" data-filter="miyue" aria-pressed="false">
+                  密约
+                </button>
+                <button
+                  class="filter-button"
+                  type="button"
+                  data-filter="special"
+                  aria-pressed="false"
+                  title="包含其他签到与十日活动任务"
+                >
+                  特别
+                </button>
+              </div>
+            </div>
+
+            <h2 class="sr-only" id="calendarHeading">月历</h2>
+            <div class="weekday-row" id="weekdayRow" aria-hidden="true">
+              <span>一</span>
+              <span>二</span>
+              <span>三</span>
+              <span>四</span>
+              <span>五</span>
+              <span>六</span>
+              <span>日</span>
+            </div>
+            <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="卡池月历"></div>
+            <div class="year-view" id="yearView" aria-label="连续年览"></div>
+
+            <div class="calendar-footer">
+              <div class="legend-groups">
+                <div class="legend" aria-label="卡池类型图例">
+                  <span class="legend-item">
+                    <i class="legend-dot legend-mixed" id="legendMixed"></i>
+                    多人混池
+                  </span>
+                  <span class="legend-item">
+                    <i class="legend-dot legend-solo" id="legendSolo"></i>
+                    单人卡池
+                  </span>
+                  <span class="legend-item">
+                    <i class="legend-dot legend-special" id="legendSpecial"></i>
+                    特别活动
+                  </span>
+                  <span class="legend-item">
+                    <i class="legend-dot legend-welfare"></i>
+                    福利（右上圆点）
+                  </span>
+                </div>
+                <div class="legend character-legend" id="characterLegend" aria-label="角色代表色图例"></div>
+              </div>
+              <p class="swipe-hint" id="scrollHint">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h14M8 9l-3 3 3 3M16 9l3 3-3 3" />
+                </svg>
+                上下滑动浏览全年
+              </p>
+            </div>
+          </section>
+
+          <aside class="agenda-panel" id="desktopAgenda" aria-labelledby="agendaTitle">
+            <div class="agenda-topline">
+              <div>
+                <p class="section-kicker">SELECTED DAY</p>
+                <h2 id="agendaTitle">8月18日</h2>
+              </div>
+              <span class="agenda-weekday" id="agendaWeekday">星期一</span>
+            </div>
+            <div class="agenda-list" id="agendaList"></div>
+            <div class="permanent-note" id="permanentNote">
+              <span class="permanent-symbol" aria-hidden="true"></span>
+              <div>
+                <small>常驻开放</small>
+                <strong>极空回响</strong>
+              </div>
+              <span class="permanent-state">长期</span>
+            </div>
+          </aside>
+        </div>
+
+        <section class="quick-look" aria-labelledby="quickLookTitle">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">CURRENT &amp; NEXT</p>
+              <h2 id="quickLookTitle">正在与接下来</h2>
+            </div>
+            <span class="section-note">按开放状态排序</span>
+          </div>
+          <div class="upcoming-list" id="upcomingList"></div>
+        </section>
+      </main>
+
+      <footer>
+        <p>来源为 @恋与深空 官方微博公开内容。</p>
+        <p>临空日历 · Aurisper</p>
+      </footer>
+    </div>
+
+    <div class="floating-year-bar" id="floatingYearBar" aria-hidden="true">
+      <div>
+        <span class="floating-year-kicker">YEAR IN VIEW</span>
+        <strong id="floatingYearLabel">2025</strong>
+      </div>
+      <span id="floatingYearCount">20 个活动</span>
+    </div>
+
+    <div class="backdrop" id="backdrop" hidden></div>
+
+    <aside
+      class="bottom-sheet date-sheet"
+      id="dateSheet"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="dateSheetTitle"
+      hidden
+    >
+      <div class="sheet-grabber" aria-hidden="true"></div>
+      <div class="sheet-header">
+        <div>
+          <p class="section-kicker">DAY AT A GLANCE</p>
+          <h2 id="dateSheetTitle">8月18日</h2>
+          <p id="dateSheetSubtitle">星期一 · 2 个卡池</p>
+        </div>
+        <button class="close-button" id="closeDateSheet" type="button" aria-label="关闭日期详情">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+      <div class="agenda-list sheet-agenda-list" id="sheetAgendaList"></div>
+    </aside>
+
+    <div
+      class="modal month-picker-modal"
+      id="monthPicker"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="monthPickerTitle"
+      hidden
+    >
+      <div class="month-picker-card">
+        <div class="picker-header">
+          <button class="nav-arrow" id="pickerPreviousYear" type="button" aria-label="上一年">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+          <h2 id="monthPickerTitle">2025年</h2>
+          <button class="nav-arrow" id="pickerNextYear" type="button" aria-label="下一年">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+        <div class="month-picker-grid" id="monthPickerGrid"></div>
+        <button class="picker-cancel" id="cancelMonthPicker" type="button">取消</button>
+      </div>
+    </div>
+
+    <div
+      class="modal event-modal"
+      id="eventModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="eventDetailTitle"
+      hidden
+    >
+      <article class="event-detail" id="eventDetail"></article>
+    </div>
+
+    <div
+      class="modal pull-record-modal"
+      id="pullRecordModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pullRecordTitle"
+      hidden
+    >
+      <div class="pull-record-dialog">
+        <div class="pull-record-header">
+          <div>
+            <p class="section-kicker">PULL MEMORY</p>
+            <h2 id="pullRecordTitle">制作抽数卡片</h2>
+          </div>
+          <button class="close-button" id="closePullRecord" type="button" aria-label="关闭抽数卡片">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m6 6 12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="pull-record-layout">
+          <div class="pull-record-form">
+            <label class="upload-field" for="pullScreenshotInput">
+              <span class="upload-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 16V4M7 9l5-5 5 5M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5" />
+                </svg>
+              </span>
+              <span>
+                <strong>上传游戏截图</strong>
+                <small id="pullScreenshotName">JPG、PNG、WebP</small>
+              </span>
+              <input id="pullScreenshotInput" type="file" accept="image/*" />
+            </label>
+
+            <section class="pull-crop-editor" id="pullCropEditor" aria-label="裁切游戏截图" hidden>
+              <div class="pull-crop-heading">
+                <div>
+                  <strong>调整截图</strong>
+                  <small>拖动画面，裁切出卡片主图</small>
+                </div>
+                <button id="resetPullCrop" type="button">重置</button>
+              </div>
+              <div class="pull-crop-viewport" id="pullCropViewport">
+                <img id="pullCropImage" alt="待裁切的游戏截图" draggable="false" />
+                <span class="pull-crop-grid" aria-hidden="true"></span>
+                <span class="pull-crop-hint">拖动调整位置</span>
+              </div>
+              <label class="pull-crop-zoom">
+                <span>缩放</span>
+                <input id="pullCropZoom" type="range" min="1" max="3" step="0.01" value="1" />
+              </label>
+            </section>
+
+            <label class="pull-field">
+              <span>抽数</span>
+              <input id="pullCountInput" type="number" min="0" step="1" inputmode="numeric" placeholder="例如 80" />
+            </label>
+            <label class="pull-field">
+              <span>钻石</span>
+              <input id="diamondInput" type="number" min="0" step="1" inputmode="numeric" placeholder="例如 12000" />
+            </label>
+            <label class="pull-field">
+              <span>花费（元）</span>
+              <input id="costInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="例如 648" />
+            </label>
+            <p class="pull-form-note">截图只在当前设备本地处理，不会上传。</p>
+          </div>
+
+          <div class="pull-preview-panel">
+            <p class="pull-preview-label">卡片预览</p>
+            <div id="pullCardPreview" class="pull-preview-stage"></div>
+          </div>
+        </div>
+
+        <div class="pull-record-actions">
+          <button class="pull-cancel-button" id="cancelPullRecord" type="button">取消</button>
+          <button class="pull-save-button" id="savePullCard" type="button">
+            保存卡片
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal image-lightbox"
+      id="imageLightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="原图"
+      tabindex="-1"
+      hidden
+    >
+      <div class="image-lightbox-scroller">
+        <figure class="image-lightbox-figure">
+          <img id="imageLightboxImage" alt="" />
+          <figcaption id="imageLightboxCaption"></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="./data.js" defer></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>

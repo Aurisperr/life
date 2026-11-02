@@ -1,0 +1,937 @@
+:root {
+  --letter-cloud: #fcfcfc;
+  --letter-paper: #f9f9fb;
+  --letter-blue: #9699b1;
+  --letter-blue-soft: #aaadbe;
+  --letter-blue-pale: #bcbecc;
+  --letter-lilac: #d1ccd5;
+  --letter-mauve: #cdc3ca;
+  --letter-mist: #dfdae0;
+  --letter-slate: #7c7f9a;
+  --letter-ink: #454252;
+  --letter-ink-soft: #6f7188;
+  --bg: #aeb3cf;
+  --bg-deep: #9399b8;
+  --surface: rgba(252, 252, 252, 0.44);
+  --surface-strong: rgba(252, 252, 252, 0.72);
+  --surface-muted: rgba(223, 218, 224, 0.34);
+  --surface-elevated: rgba(252, 252, 252, 0.94);
+  --glass-edge: rgba(255, 255, 255, 0.78);
+  --glass-inner: rgba(255, 255, 255, 0.84);
+  --glass-sheen: rgba(255, 255, 255, 0.2);
+  --ink: var(--letter-ink);
+  --ink-soft: var(--letter-ink-soft);
+  --ink-faint: var(--letter-blue);
+  --line: rgba(76, 74, 94, 0.1);
+  --line-strong: rgba(76, 74, 94, 0.18);
+  --accent: var(--letter-slate);
+  --accent-strong: var(--letter-ink);
+  --accent-soft: rgba(150, 153, 177, 0.16);
+  --selected: var(--letter-ink);
+  --selected-ink: #fcfcfc;
+  --shadow-lg: 0 34px 90px rgba(50, 51, 76, 0.2), 0 5px 18px rgba(50, 51, 76, 0.08);
+  --shadow-sm: 0 12px 32px rgba(50, 51, 76, 0.12);
+  --blur: blur(18px) saturate(150%);
+}
+
+body.theme-letter {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 5% -2%, rgba(252, 252, 252, 0.56), transparent 31rem),
+    radial-gradient(ellipse at 98% 10%, rgba(205, 195, 202, 0.55), transparent 34rem),
+    radial-gradient(ellipse at 4% 64%, rgba(124, 127, 154, 0.36), transparent 32rem),
+    linear-gradient(152deg, #b9bdd4 0%, #a6abc7 42%, #8e94b3 100%);
+  color: var(--letter-ink);
+}
+
+body.theme-letter::before {
+  opacity: 0.42;
+  background-image:
+    radial-gradient(circle at 14% 20%, rgba(255, 255, 255, 0.9) 0 0.8px, transparent 1.7px),
+    radial-gradient(circle at 72% 34%, rgba(255, 255, 255, 0.64) 0 0.7px, transparent 1.5px),
+    linear-gradient(90deg, transparent 0 63px, rgba(255, 255, 255, 0.085) 64px, transparent 65px);
+  background-size: 19px 19px, 29px 29px, 128px 100%;
+  mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+}
+
+body.theme-letter::after {
+  inset: -18% -10%;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 3%,
+      rgba(238, 240, 249, 0.58) 16%,
+      transparent 34%,
+      rgba(201, 188, 199, 0.34) 72%,
+      rgba(255, 244, 233, 0.24) 84%,
+      transparent 94%
+    ),
+    radial-gradient(ellipse at 87% 11%, rgba(255, 224, 239, 0.5), transparent 20%),
+    radial-gradient(ellipse at 9% 32%, rgba(189, 241, 252, 0.3), transparent 18%);
+  filter: blur(24px);
+  opacity: 0.92;
+}
+
+body.theme-letter .ambient-orb {
+  opacity: 0.3;
+  filter: blur(16px);
+}
+
+body.theme-letter .ambient-orb-one {
+  top: -15rem;
+  left: -9rem;
+  width: 36rem;
+  height: 36rem;
+  background: rgba(238, 240, 249, 0.9);
+}
+
+body.theme-letter .ambient-orb-two {
+  top: 34%;
+  right: -14rem;
+  width: 34rem;
+  height: 34rem;
+  background: rgba(211, 202, 214, 0.72);
+}
+
+body.theme-letter .ambient-orb-three {
+  bottom: -16rem;
+  left: 20%;
+  width: 32rem;
+  height: 32rem;
+  background: rgba(226, 218, 222, 0.56);
+}
+
+body.theme-letter .app-shell {
+  width: min(1180px, calc(100% - 38px));
+  padding: 16px 0 50px;
+}
+
+body.theme-letter .topbar {
+  top: 12px;
+  min-height: 58px;
+  padding: 7px 9px 7px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  border-radius: 18px;
+  background:
+    radial-gradient(160px 90px at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.48), transparent 74%),
+    linear-gradient(125deg, rgba(252, 252, 252, 0.3), rgba(209, 204, 213, 0.2)),
+    rgba(148, 153, 184, 0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    inset 0 -1px 0 rgba(76, 74, 94, 0.08),
+    0 14px 34px rgba(56, 58, 87, 0.14);
+  backdrop-filter: blur(18px) saturate(155%);
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+}
+
+body.theme-letter .topbar.is-scrolled {
+  border-color: rgba(255, 255, 255, 0.82);
+  background:
+    radial-gradient(180px 100px at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.48), transparent 74%),
+    linear-gradient(125deg, rgba(252, 252, 252, 0.5), rgba(223, 218, 224, 0.24)),
+    rgba(203, 207, 226, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.94),
+    inset 0 -1px 0 rgba(76, 74, 94, 0.08),
+    0 18px 42px rgba(50, 52, 80, 0.2);
+}
+
+body.theme-letter .brand-mark {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.84);
+  border-radius: 46% 54% 50% 46% / 50% 54% 46% 50%;
+  background:
+    radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.96), transparent 34%),
+    linear-gradient(155deg, #fbfbfb 0%, #e3e2e7 46%, #d7d4dc 76%, #dfc1c2 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.92),
+    0 7px 18px rgba(52, 53, 77, 0.16);
+}
+
+body.theme-letter .brand-mark span {
+  left: 7px;
+  width: 25px;
+  border-width: 1.7px;
+  border-color: rgba(76, 74, 94, 0.7);
+  border-right-color: transparent;
+  border-left-color: transparent;
+}
+
+body.theme-letter .brand-copy strong {
+  color: var(--letter-ink);
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+body.theme-letter .brand-copy small {
+  color: rgba(69, 66, 82, 0.58);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+
+body.theme-letter .data-badge {
+  border-color: rgba(255, 255, 255, 0.56);
+  background: rgba(252, 252, 252, 0.2);
+  color: rgba(69, 66, 82, 0.68);
+}
+
+body.theme-letter .icon-button {
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 14px;
+  background: var(--letter-ink);
+  color: var(--letter-cloud);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+body.theme-letter main {
+  position: relative;
+  isolation: isolate;
+  margin-top: 14px;
+  padding: clamp(30px, 4vw, 55px) clamp(14px, 3.6vw, 46px) 40px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: clamp(52px, 8vw, 98px) 24px 30px 30px;
+  background:
+    linear-gradient(135deg, rgba(252, 252, 252, 0.84), rgba(249, 249, 251, 0.62) 52%, rgba(225, 226, 236, 0.52)),
+    radial-gradient(ellipse at 100% 0%, rgba(205, 195, 202, 0.3), transparent 35%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    inset 1px 0 0 rgba(255, 255, 255, 0.54),
+    0 32px 80px rgba(45, 47, 73, 0.22);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.theme-letter main::before {
+  position: absolute;
+  top: -125px;
+  right: -85px;
+  z-index: -1;
+  width: 390px;
+  height: 280px;
+  border: 1px solid rgba(150, 153, 177, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow:
+    0 0 0 34px rgba(252, 252, 252, 0.06),
+    0 0 0 70px rgba(150, 153, 177, 0.055);
+  content: "";
+  transform: rotate(-17deg);
+}
+
+body.theme-letter main::after {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: -1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    -86px 18px 0 -2px rgba(255, 255, 255, 0.62),
+    42px 92px 18px 3px rgba(211, 192, 220, 0.28),
+    -18px 135px 22px 4px rgba(181, 217, 229, 0.22);
+  content: "";
+}
+
+body.theme-letter .page-intro {
+  position: relative;
+  align-items: flex-end;
+  padding: 6px 10px 38px;
+  border-bottom: 1px solid var(--line);
+}
+
+body.theme-letter .page-intro::after {
+  position: absolute;
+  top: -18px;
+  right: 4%;
+  z-index: -1;
+  color: rgba(124, 127, 154, 0.12);
+  font-family: "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  font-size: clamp(48px, 8vw, 94px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  content: "Lads";
+  transform: rotate(-4deg);
+}
+
+body.theme-letter .eyebrow,
+body.theme-letter .section-kicker {
+  color: var(--letter-slate);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+}
+
+body.theme-letter .page-intro h1 {
+  color: var(--letter-ink);
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: clamp(44px, 7vw, 76px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+body.theme-letter .intro-copy {
+  margin-top: 14px;
+  color: var(--letter-ink-soft);
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+body.theme-letter .intro-meta {
+  border-color: rgba(255, 255, 255, 0.82);
+  background: rgba(252, 252, 252, 0.46);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    0 8px 24px rgba(61, 62, 91, 0.08);
+  color: var(--letter-slate);
+}
+
+body.theme-letter .workspace {
+  gap: 18px;
+  margin-top: 30px;
+}
+
+body.theme-letter .calendar-panel,
+body.theme-letter .agenda-panel {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background:
+    linear-gradient(138deg, rgba(252, 252, 252, 0.54), transparent 31%),
+    linear-gradient(155deg, rgba(240, 241, 246, 0.36), rgba(188, 190, 204, 0.15));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(76, 74, 94, 0.055),
+    0 18px 44px rgba(52, 54, 83, 0.1);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+}
+
+body.theme-letter .calendar-panel {
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  border-radius: 31px 16px 24px 24px;
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(255, 255, 255, 0.52), transparent 32%),
+    linear-gradient(145deg, rgba(252, 252, 252, 0.42), rgba(196, 198, 214, 0.15));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.94),
+    inset 0 -1px 0 rgba(76, 74, 94, 0.06),
+    0 20px 46px rgba(52, 54, 83, 0.11);
+  backdrop-filter: blur(10px) saturate(130%);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+}
+
+body.theme-letter .calendar-panel::after,
+body.theme-letter .agenda-panel::after {
+  background:
+    linear-gradient(
+      112deg,
+      rgba(255, 255, 255, 0.24),
+      transparent 22% 64%,
+      rgba(252, 252, 252, 0.12) 82%,
+      transparent
+    );
+  mix-blend-mode: soft-light;
+  opacity: 0.48;
+}
+
+body.theme-letter .calendar-panel::before,
+body.theme-letter .agenda-panel::before {
+  background:
+    radial-gradient(ellipse at 9% 0%, rgba(255, 255, 255, 0.64), transparent 35%),
+    radial-gradient(ellipse at 102% 20%, rgba(205, 195, 202, 0.2), transparent 38%);
+}
+
+body.theme-letter .calendar-panel::before,
+body.theme-letter .calendar-panel::after {
+  display: block;
+}
+
+body.theme-letter .agenda-panel {
+  border-radius: 25px 25px 38px 25px;
+}
+
+body.theme-letter .calendar-mode-bar {
+  padding: 0 0 13px;
+  border-color: rgba(76, 74, 94, 0.09);
+}
+
+body.theme-letter .mode-switcher,
+body.theme-letter .year-range-switcher,
+body.theme-letter .size-switcher,
+body.theme-letter .view-switcher {
+  border-color: rgba(255, 255, 255, 0.78);
+  background: rgba(223, 218, 224, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 7px 18px rgba(76, 74, 94, 0.07);
+}
+
+body.theme-letter .mode-button.is-active,
+body.theme-letter .range-button.is-active,
+body.theme-letter .size-button.is-active,
+body.theme-letter .filter-button.is-active {
+  background:
+    linear-gradient(135deg, rgba(252, 252, 252, 0.84), rgba(223, 218, 224, 0.42));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 12px rgba(67, 65, 91, 0.08);
+  color: var(--letter-ink);
+}
+
+body.theme-letter .month-title strong {
+  color: var(--letter-ink);
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-weight: 600;
+}
+
+body.theme-letter .month-title span,
+body.theme-letter .month-title svg,
+body.theme-letter .nav-arrow {
+  color: var(--letter-slate);
+}
+
+body.theme-letter .weekday-row,
+body.theme-letter .mini-weekday-row {
+  color: var(--letter-blue);
+  font-weight: 600;
+}
+
+body.theme-letter .calendar-grid,
+body.theme-letter .mini-calendar-grid {
+  border-color: rgba(124, 127, 154, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(252, 252, 252, 0.12));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.68),
+    0 8px 22px rgba(55, 57, 86, 0.045);
+}
+
+body.theme-letter .calendar-grid {
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+}
+
+body.theme-letter .mini-calendar-grid {
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+}
+
+body.theme-letter .calendar-day,
+body.theme-letter .year-day {
+  border-color: rgba(124, 127, 154, 0.14);
+}
+
+body.theme-letter .calendar-day.is-selected,
+body.theme-letter .year-day.is-selected {
+  box-shadow:
+    inset 0 0 0 1px var(--letter-ink),
+    inset 0 0 0 4px rgba(252, 252, 252, 0.38);
+}
+
+body.theme-letter .year-view {
+  gap: 18px;
+}
+
+body.theme-letter .year-block + .year-block {
+  padding-top: 22px;
+  border-color: rgba(76, 74, 94, 0.09);
+}
+
+body.theme-letter .year-block-heading {
+  margin: 0 0 4px;
+  padding: 12px 2px 10px;
+  border: 0;
+  border-bottom: 1px solid rgba(76, 74, 94, 0.09);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.theme-letter .year-block-heading h2 {
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-weight: 600;
+}
+
+body.theme-letter .year-kicker {
+  color: var(--letter-slate);
+}
+
+body.theme-letter .year-months {
+  gap: 8px 12px;
+}
+
+body.theme-letter .year-month {
+  padding: 11px 14px 17px;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 22%);
+  box-shadow: none;
+}
+
+body.theme-letter .year-month-heading h3 {
+  color: var(--letter-ink);
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-weight: 600;
+}
+
+body.theme-letter .year-month-heading span,
+body.theme-letter .section-note,
+body.theme-letter .swipe-hint {
+  color: var(--letter-slate);
+}
+
+body.theme-letter .calendar-footer {
+  border-color: rgba(76, 74, 94, 0.08);
+}
+
+body.theme-letter .legend-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+body.theme-letter .character-legend {
+  gap: 7px 11px;
+}
+
+body.theme-letter .character-legend .legend-item {
+  font-size: 9px;
+}
+
+body.theme-letter .legend-dot,
+body.theme-letter .character-legend .legend-dot {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.7),
+    0 1px 4px rgba(69, 66, 82, 0.12);
+}
+
+body.theme-letter .legend-welfare {
+  border: 0;
+  box-shadow: none;
+}
+
+body.theme-letter .agenda-panel {
+  padding: 22px 19px 18px;
+}
+
+body.theme-letter .agenda-topline {
+  border-color: rgba(76, 74, 94, 0.1);
+}
+
+body.theme-letter .agenda-topline h2,
+body.theme-letter .section-heading h2 {
+  color: var(--letter-ink);
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-weight: 600;
+}
+
+body.theme-letter .agenda-weekday {
+  background: rgba(252, 252, 252, 0.38);
+  color: var(--letter-slate);
+}
+
+body.theme-letter .agenda-item {
+  border-color: color-mix(in srgb, var(--event-color) 18%, rgba(255, 255, 255, 0.62));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--event-color) 10%, rgba(252, 252, 252, 0.58)), rgba(252, 252, 252, 0.3));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.86),
+    0 7px 18px rgba(61, 63, 95, 0.055);
+}
+
+body.theme-letter .permanent-note {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(252, 252, 252, 0.28);
+}
+
+body.theme-letter .upcoming-card {
+  border-color: color-mix(in srgb, var(--event-color) 18%, rgba(255, 255, 255, 0.74));
+  border-radius: 21px 21px 29px 21px;
+  background:
+    radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--event-color) 20%, transparent), transparent 44%),
+    linear-gradient(145deg, rgba(252, 252, 252, 0.6), rgba(225, 226, 236, 0.28));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 14px 34px rgba(54, 56, 85, 0.1);
+}
+
+body.theme-letter .upcoming-card h3,
+body.theme-letter .quick-look h2 {
+  color: var(--letter-ink);
+}
+
+body.theme-letter .floating-year-bar {
+  border-color: rgba(255, 255, 255, 0.78);
+  border-radius: 18px;
+  background:
+    linear-gradient(120deg, rgba(252, 252, 252, 0.28), rgba(150, 153, 177, 0.14)),
+    rgba(170, 173, 190, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 16px 38px rgba(51, 52, 79, 0.16);
+  backdrop-filter: blur(18px) saturate(155%);
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+}
+
+body.theme-letter .floating-year-bar::before {
+  background:
+    linear-gradient(115deg, rgba(252, 252, 252, 0.3), transparent 52%),
+    radial-gradient(circle at 82% 45%, rgba(205, 195, 202, 0.4), transparent 38%);
+}
+
+body.theme-letter .floating-year-bar strong {
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-weight: 600;
+}
+
+body.theme-letter .bottom-sheet,
+body.theme-letter .month-picker-card {
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  background:
+    linear-gradient(145deg, rgba(252, 252, 252, 0.95), rgba(237, 237, 243, 0.9));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 -20px 60px rgba(49, 50, 78, 0.2);
+}
+
+body.theme-letter .bottom-sheet {
+  border-radius: 32px 32px 0 0;
+}
+
+body.theme-letter .modal {
+  background: rgba(47, 48, 72, 0.32);
+}
+
+body.theme-letter .month-choice {
+  border-color: rgba(124, 127, 154, 0.14);
+  background: rgba(223, 218, 224, 0.28);
+}
+
+body.theme-letter .month-choice.is-current {
+  background: var(--letter-ink);
+  color: var(--letter-cloud);
+}
+
+body.theme-letter .event-detail {
+  border-color: rgba(255, 255, 255, 0.8);
+  border-radius: 38px 20px 30px 30px;
+  background: var(--letter-cloud);
+  box-shadow: 0 34px 100px rgba(43, 45, 72, 0.32);
+}
+
+body.theme-letter .event-hero {
+  min-height: 268px;
+  background:
+    radial-gradient(circle at 84% 20%, color-mix(in srgb, var(--event-color) 40%, white), transparent 33%),
+    linear-gradient(145deg, color-mix(in srgb, var(--event-color) 30%, #dfdae0), #fcfcfc 78%);
+}
+
+body.theme-letter .event-hero-copy {
+  max-width: 84%;
+  margin-top: 54px;
+}
+
+body.theme-letter .hero-type {
+  min-height: 0;
+  margin: 0 0 15px;
+  padding: 0 0 9px;
+  border: 0;
+  border-bottom: 1px solid rgba(76, 74, 94, 0.14);
+  border-radius: 0;
+  background: transparent;
+  color: var(--letter-slate);
+  letter-spacing: 0.1em;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.theme-letter .event-hero-copy h2 {
+  margin: 0 0 13px;
+  line-height: 1.06;
+}
+
+body.theme-letter .event-hero-copy p {
+  line-height: 1.65;
+}
+
+body.theme-letter .event-hero-copy .hero-character-pill {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(252, 252, 252, 0.34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
+  line-height: 1;
+}
+
+body.theme-letter .event-hero-copy h2,
+body.theme-letter .event-hero-copy p,
+body.theme-letter .hero-type,
+body.theme-letter .glass-action {
+  color: var(--letter-ink);
+}
+
+body.theme-letter .event-content {
+  padding: 24px 25px 30px;
+}
+
+body.theme-letter .event-time-block {
+  border-color: rgba(76, 74, 94, 0.1);
+}
+
+body.theme-letter .advice-list li {
+  background: rgba(223, 218, 224, 0.26);
+}
+
+body.theme-letter .event-source-note {
+  display: block;
+}
+
+body.theme-letter .event-source-note span {
+  display: block;
+}
+
+body.theme-letter .source-announcement-button {
+  border-color: rgba(124, 127, 154, 0.16);
+  background: rgba(227, 226, 231, 0.42);
+  color: var(--letter-ink);
+}
+
+body.theme-letter .source-announcement-button:hover {
+  background: rgba(227, 226, 231, 0.68);
+}
+
+body.theme-letter footer {
+  margin-top: 26px;
+  border-color: rgba(255, 255, 255, 0.26);
+  color: rgba(252, 252, 252, 0.68);
+  padding: 18px 6px 0;
+}
+
+body.theme-letter[data-density="compact"] .year-months {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+body.theme-letter[data-density="compact"] .year-month {
+  padding: 10px 8px 8px;
+}
+
+body.theme-letter[data-density="compact"] .year-day {
+  min-height: 39px;
+}
+
+@media (max-width: 980px) {
+  body.theme-letter[data-density="compact"] .year-months {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  body.theme-letter .app-shell {
+    width: calc(100% - 20px);
+    padding-top: 8px;
+  }
+
+  body.theme-letter .topbar {
+    top: 8px;
+    border-radius: 16px;
+  }
+
+  body.theme-letter main {
+    margin-top: 10px;
+    padding: 38px 18px 30px;
+    border-radius: 52px 18px 24px 24px;
+  }
+
+  body.theme-letter .page-intro {
+    align-items: flex-start;
+    gap: 16px;
+    padding: 4px 8px 30px;
+  }
+
+  body.theme-letter .page-intro h1 {
+    font-size: 48px;
+  }
+
+  body.theme-letter .page-intro::after {
+    top: -6px;
+    right: 3%;
+    font-size: 56px;
+  }
+
+  body.theme-letter .workspace {
+    margin-top: 22px;
+  }
+
+  body.theme-letter .calendar-panel {
+    padding: 14px 12px 12px;
+    border-radius: 30px 14px 22px 22px;
+  }
+
+  body.theme-letter .year-months,
+  body.theme-letter[data-density="compact"] .year-months {
+    grid-template-columns: 1fr;
+  }
+
+  body.theme-letter .year-month {
+    padding: 12px 10px 10px;
+    border-radius: 15px;
+  }
+
+  body.theme-letter .floating-year-bar {
+    border-radius: 15px;
+  }
+
+  body.theme-letter .quick-look {
+    margin-top: 30px;
+  }
+
+  body.theme-letter .event-detail {
+    border-radius: 0;
+  }
+
+  body.theme-letter .event-hero {
+    min-height: 252px;
+  }
+
+  body.theme-letter .event-hero-copy {
+    max-width: 90%;
+    margin-top: 48px;
+  }
+
+  body.theme-letter .hero-type {
+    margin-bottom: 13px;
+  }
+
+  body.theme-letter .event-hero-copy h2 {
+    margin-bottom: 12px;
+  }
+
+}
+
+@media (max-width: 430px) {
+  body.theme-letter main {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  body.theme-letter .calendar-mode-bar {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  body.theme-letter .calendar-control-cluster {
+    margin-left: 0;
+  }
+
+  body.theme-letter .mode-button {
+    padding: 0 8px;
+  }
+
+  body.theme-letter .calendar-control-cluster {
+    gap: 4px;
+  }
+
+  body.theme-letter .size-switcher .size-button,
+  body.theme-letter .year-range-switcher .range-button {
+    min-width: 34px;
+    padding: 0 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.theme-letter *,
+  body.theme-letter *::before,
+  body.theme-letter *::after {
+    animation: none !important;
+  }
+}
+
+/* All readable product copy uses the system sans-serif family. The italic
+   "Lads" watermark above remains decorative artwork rather than body copy. */
+body.theme-letter,
+body.theme-letter .brand-copy strong,
+body.theme-letter .page-intro h1,
+body.theme-letter .intro-copy,
+body.theme-letter .month-title strong,
+body.theme-letter .year-block-heading h2,
+body.theme-letter .year-month-heading h3,
+body.theme-letter .agenda-topline h2,
+body.theme-letter .section-heading h2,
+body.theme-letter .floating-year-bar strong {
+  font-family: var(--font);
+}
+
+body.theme-letter .month-control {
+  min-width: 0;
+}
+
+body.theme-letter .month-title {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+body.theme-letter .month-title span,
+body.theme-letter .month-title strong {
+  white-space: nowrap;
+}
+
+@media (max-width: 430px) {
+  body.theme-letter .month-title {
+    gap: 5px;
+    padding-inline: 5px;
+  }
+
+  body.theme-letter .month-title span {
+    font-size: 10px;
+  }
+
+  body.theme-letter .month-title strong {
+    font-size: 21px;
+  }
+
+  body.theme-letter .view-switcher {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-row-gap: 3px;
+  }
+
+  body.theme-letter .filter-button {
+    min-width: 0;
+    padding: 0 4px;
+    font-size: 9px;
+  }
+}
+
+@media (min-width: 761px) {
+  body.theme-letter .workspace .agenda-panel {
+    position: fixed;
+    top: 50%;
+    right: calc(19px + 3.6vw);
+    z-index: 24;
+    width: 285px;
+    max-height: calc(100vh - 36px);
+    overflow-y: auto;
+    transform: translateY(-50%);
+  }
+}
+
+@media (min-width: 981px) {
+  body.theme-letter .workspace .agenda-panel {
+    width: 320px;
+  }
+}
+
+@media (min-width: 1220px) {
+  body.theme-letter .workspace .agenda-panel {
+    right: calc((100vw - 1180px) / 2 + 46px);
+  }
+}
